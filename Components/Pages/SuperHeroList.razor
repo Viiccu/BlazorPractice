@@ -1,0 +1,76 @@
+﻿@page "/superherolist"
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Http.Extensions;
+@inject IJSRuntime JsRuntime
+@inject IHeroService HeroService
+@inject NavigationManager NavManager
+
+
+<h2>Hero List</h2>
+
+@if(superHeroes == null)
+{
+    <p>Loading...</p>
+}
+else if(superHeroes.Count == 0)
+{
+    <p> no heroes to display </p>
+}
+else
+{
+    <ul>
+    @foreach(var hero in heroList)
+    {
+        <li>
+            <input style="display: inline;" type="checkbox" @bind="hero.isSelected"/>
+            <h4 style="display: inline;">@hero.superHero.HeroName</h4>
+            <a href="/edithero/@hero.superHero.Id" style="text-decoration: none;"><button style="display: inline;">Modify</button></a>
+        </li>
+    }
+    </ul>
+    
+}
+
+<a href="/addhero">Wanna add a hero?</a>
+@if(heroList.Count(x => x.isSelected) > 0)
+    {
+        <button @onclick="DeleteHeroes">click me</button>
+    }
+
+
+@code {
+    
+    List<SuperHero>? superHeroes = null;
+    List<ListItem>? heroList = new();  
+
+    protected override async Task OnInitializedAsync()
+    {
+        superHeroes = await HeroService.GetHeroes();
+
+        foreach(var hero in superHeroes)
+        {
+            heroList.Add(new() { superHero = hero });
+        }
+    }
+
+    public void DeleteHeroes()
+    {
+        if(heroList is null) return;
+
+        foreach(var hero in heroList)
+        {
+            if(hero.isSelected)
+                HeroService.DeleteHero(hero.superHero.Id);
+        }
+
+        NavManager.Refresh(true);
+    }
+}
+
+@code{
+    public class ListItem
+    {
+        public required SuperHero superHero { get;set; }
+        public bool isSelected { get; set; } = false;
+    }
+}

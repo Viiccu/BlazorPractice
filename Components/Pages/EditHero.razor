@@ -1,0 +1,35 @@
+@page "/edithero/{Id:int}"
+@inject IHeroService HeroService
+@rendermode InteractiveServer
+
+@if(hero is null)
+{
+    <h3>Loading...</h3>
+}
+else
+{
+    <input @bind="hero.HeroName"/>
+    <input @bind="hero.Name"/>
+    <input @bind="hero.City"/>
+    <input @bind="hero.DateOfBirth"/>
+    <a href="/superherolist" style="text-decoration: none;"><button @onclick="SaveChanges">Save Changes</button></a>
+}
+
+@functions{
+    [Parameter]
+    public int? Id { get; set; }
+    SuperHero? hero;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine($"ID:{Id}");
+        List<SuperHero> heroes = await HeroService.GetHeroes();
+        
+        hero = heroes.FirstOrDefault(x => x.Id == Id);
+    }
+
+    public void SaveChanges()
+    {   
+        HeroService.UpdateHero(hero);
+    }
+}

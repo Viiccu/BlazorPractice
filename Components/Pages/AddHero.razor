@@ -1,0 +1,30 @@
+@page "/addhero"
+@rendermode InteractiveServer
+@inject IHeroService HeroService
+
+<input @bind="heroname"/><br>
+<input @bind="name"/><br>
+<input @bind="city"/><br>
+<input @bind="birthdate" type="date"/><br>
+<button @onclick="AddSuperHero">Add hero</button>
+
+@code{
+    string heroname = "";
+    string name = "";
+    string city = "";
+    DateTime birthdate = new DateTime();
+
+    public void AddSuperHero()
+    {
+        if(string.IsNullOrEmpty(heroname)) return;
+        if(string.IsNullOrEmpty(name)) name = "unknown";
+        if(string.IsNullOrEmpty(city)) city = "unknown";
+
+        HeroService.AddHero(new SuperHero() { Id = 0, HeroName = heroname, Name = name, City = city, DateOfBirth = birthdate });
+
+        heroname = string.Empty;
+        name = string.Empty;
+        city = string.Empty;
+        birthdate = DateTime.MinValue;
+    }
+}
