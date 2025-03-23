@@ -2,9 +2,9 @@
 @rendermode InteractiveServer
 @inject IHeroService HeroService
 
-<input @bind="heroname"/><br>
-<input @bind="name"/><br>
-<input @bind="city"/><br>
+<input @bind="heroname" placeholder="Hero name"/><br>
+<input @bind="name" placeholder="Real name"/><br>
+<input @bind="city" placeholder="City"/><br>
 <input @bind="birthdate" type="date"/><br>
 <button @onclick="AddSuperHero">Add hero</button>
 

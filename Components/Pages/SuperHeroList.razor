@@ -18,11 +18,11 @@ else if(superHeroes.Count == 0)
 }
 else
 {
-    <ul>
+    <ul style="list-style: none;">
     @foreach(var hero in heroList)
     {
         <li>
-            <input style="display: inline;" type="checkbox" @bind="hero.isSelected"/>
+            <input style="display: inline; " type="checkbox" @bind="hero.isSelected"/>
             <h4 style="display: inline;">@hero.superHero.HeroName</h4>
             <a href="/edithero/@hero.superHero.Id" style="text-decoration: none;"><button style="display: inline;">Modify</button></a>
         </li>
@@ -34,7 +34,7 @@ else
 <a href="/addhero">Wanna add a hero?</a>
 @if(heroList.Count(x => x.isSelected) > 0)
     {
-        <button @onclick="DeleteHeroes">click me</button>
+        <button @onclick="DeleteHeroes"> Delete </button>
     }
 
 
@@ -74,3 +74,4 @@ else
         public bool isSelected { get; set; } = false;
     }
 }
+
