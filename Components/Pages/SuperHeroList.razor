@@ -5,7 +5,6 @@
 @inject IHeroService HeroService
 @inject NavigationManager NavManager
 
-
 <h2>Hero List</h2>
 
 @if(superHeroes == null)
@@ -18,23 +17,27 @@ else if(superHeroes.Count == 0)
 }
 else
 {
-    <ul style="list-style: none;">
+    <ul class="list-group w-25">
     @foreach(var hero in heroList)
     {
-        <li>
-            <input style="display: inline; " type="checkbox" @bind="hero.isSelected"/>
-            <h4 style="display: inline;">@hero.superHero.HeroName</h4>
-            <a href="/edithero/@hero.superHero.Id" style="text-decoration: none;"><button style="display: inline;">Modify</button></a>
+        <li class="list-group-item d-flex justify-content-between">
+            <div>
+                <div class="input-group-text d-inline">
+                    <input class="d-inline" type="checkbox" @bind="hero.isSelected"/>
+                </div>
+                <h4 class="d-inline">@hero.superHero.HeroName</h4>
+            </div>
+            <a href="/edithero/@hero.superHero.Id" style="text-decoration: none;"><button class="btn btn-secondary rounded p-1">Modify</button></a>
         </li>
     }
     </ul>
     
 }
 
-<a href="/addhero">Wanna add a hero?</a>
+<a class="btn btn-outline-success mt-4" href="/addhero">Wanna add a hero?</a>
 @if(heroList.Count(x => x.isSelected) > 0)
     {
-        <button @onclick="DeleteHeroes"> Delete </button>
+        <button class="btn btn-outline-danger mt-4 mx-2" @onclick="DeleteHeroes"> Delete </button>
     }
 
 

@@ -8,11 +8,13 @@
 }
 else
 {
-    <input @bind="hero.HeroName"/>
-    <input @bind="hero.Name"/>
-    <input @bind="hero.City"/>
-    <input @bind="hero.DateOfBirth"/>
-    <a href="/superherolist" style="text-decoration: none;"><button @onclick="SaveChanges">Save Changes</button></a>
+    <div class="p-4">
+        <input @bind="hero.HeroName" class="form-control w-25"/><br>
+        <input @bind="hero.Name" class="form-control w-25"/><br>
+        <input @bind="hero.City" class="form-control w-25"/><br>
+        <input @bind="hero.DateOfBirth" class="form-control w-25"/><br>
+        <a href="/superherolist" style="text-decoration: none;" ><button class="btn btn-outline-success" @onclick="SaveChanges">Save Changes</button></a>
+    </div>
 }
 
 @functions{

@@ -2,11 +2,13 @@
 @rendermode InteractiveServer
 @inject IHeroService HeroService
 
-<input @bind="heroname" placeholder="Hero name"/><br>
-<input @bind="name" placeholder="Real name"/><br>
-<input @bind="city" placeholder="City"/><br>
-<input @bind="birthdate" type="date"/><br>
-<button @onclick="AddSuperHero">Add hero</button>
+<div class="form-group p-4">
+    <input @bind="heroname" placeholder="Hero name" class="form-control w-25"/><br>
+    <input @bind="name" placeholder="Real name" class="form-control w-25"/><br>
+    <input @bind="city" placeholder="City" class="form-control w-25"/><br>
+    <input @bind="birthdate" type="date" class="form-control w-25"/><br>
+    <button class="btn btn-outline-success" @onclick="AddSuperHero">Add hero</button>
+</div>
 
 @code{
     string heroname = "";
