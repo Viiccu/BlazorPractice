@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SuperHeroApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06a3269c97453b7b3a4652773af4f89e8074455d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3086daf9ef9c5bf4c66ac31040459fee59cc1894")]
 [assembly: System.Reflection.AssemblyProductAttribute("SuperHeroApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SuperHeroApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

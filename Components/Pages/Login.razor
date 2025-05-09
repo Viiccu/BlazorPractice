@@ -1,0 +1,66 @@
+@page "/login"
+@rendermode InteractiveServer
+@inject IUserService UserService
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<h1 class="mb-5">Log in</h1>
+
+<EditForm Model="@user" OnValidSubmit="login">
+    <InputText @bind-Value="user.Username" placeholder="Username" class="form-control w-25"/>
+    <InputText @bind-Value="user.Password" type="password" placeholder="Password" class="form-control w-25" /> <br>
+    <button type="submit" class="form-control w-25">Login</button>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(feedbackMessage))
+{
+    <p class="@feedbackClass">@feedbackMessage</p>
+}
+
+<a href="#">No account? - sign up</a>
+
+@code {
+    UserLogin user = new() { Role = "User" };
+
+    private string? feedbackMessage;
+    private string feedbackClass = "";
+
+    public async Task login()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/auth/login", user);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
+                if (!string.IsNullOrEmpty(result?.Token))
+                {
+                    feedbackMessage = "Login successful!";
+                    feedbackClass = "text-success";
+
+                    // Example: redirect after successful login
+                    NavManager.NavigateTo("/");
+                    return;
+                }
+                feedbackMessage = "No token received.";
+                feedbackClass = "text-warning";
+            }
+            else
+            {
+                feedbackMessage = "Invalid username or password." + response.StatusCode;
+                feedbackClass = "text-danger";
+            }
+        }
+        catch (Exception ex)
+        {
+            feedbackMessage = "An error occurred: " + ex.Message;
+            feedbackClass = "text-danger";
+        }
+        NavManager.NavigateTo("/login");
+    }
+
+    public class AuthResponse
+    {
+        public string Token { get; set; } = string.Empty;
+    }
+}
